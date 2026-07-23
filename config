@@ -1,0 +1,494 @@
+## CAVA 配置文件。
+## Configuration file for CAVA.
+# 移除 ; 来更改参数。
+# Remove the ; to change parameters.
+
+
+[general]
+
+# 如果配置文件更改，自动重新加载配置。 1 = 开启， 0 = 关闭。
+# Auto reload config if the configuration file has changed. 1 = on, 0 = off.
+; live-config = 1
+
+# 平滑模式。 可以是 'normal', 'scientific' 或 'waves'。 从 0.6.0 起已弃用
+# Smoothing mode. Can be 'normal', 'scientific' or 'waves'. DEPRECATED as of 0.6.0
+; mode = normal
+
+# 仅接受非负值。
+# Accepts only non-negative values.
+framerate = 90
+
+# 如果条形图达到峰值，'autosens' 将尝试降低灵敏度。 1 = 开启， 0 = 关闭
+# 0.6.0 版本新增：低值（动态范围）的自动灵敏度
+# 'overshoot' 允许条形图超出（占终端高度的百分比），而不会触发自动灵敏度。 从 0.6.0 起已弃用
+# 'autosens' will attempt to decrease sensitivity if the bars peak. 1 = on, 0 = off
+# new as of 0.6.0 autosens of low values (dynamic range)
+# 'overshoot' allows bars to overshoot (in % of terminal height) without initiating autosens. DEPRECATED as of 0.6.0
+; autosens = 1
+; overshoot = 20
+
+# 手动灵敏度（百分比）。如果启用了 autosens，这只是初始值。
+# 200 表示两倍高度。仅接受非负值。
+# Manual sensitivity in %. If autosens is enabled, this will only be the initial value.
+# 200 means double height. Accepts only non-negative values.
+; sensitivity = 100
+
+# 条形图的数量 (0-512)。0 设置为自动（填满控制台）。
+# 条形图的宽度和条形图之间的间距，以字符数计。
+# The number of bars (0-512). 0 sets it to auto (fill up console).
+# Bars' width and space between bars in number of characters.
+bars = 0
+bar_width = 1
+; bar_spacing = 1
+# bar_height 仅用于 "noritake" 格式的输出
+# bar_height is only used for output in "noritake" format
+; bar_height = 32
+
+# 对于 SDL，条形图的宽度和间距以像素为单位，默认值是：
+# For SDL width and space between bars is in pixels, defaults are:
+; bar_width = 20
+; bar_spacing = 5
+
+# sdl_glsl 具有这些默认值，它们仅用于计算条形图的最大数量。
+# sdl_glsl have these default values, they are only used to calculate max number of bars.
+; bar_width = 1
+; bar_spacing = 0
+
+# 如果有空间，则在终端居中显示条形图。
+# ceter bars in terminal, if there is space.
+; center_align = 1
+
+# 终端中条形图的最大高度，占终端高度的百分比。
+# max height of bars in terminal, in percent of terminal height.
+max_height = 80
+
+
+# 最低和最高条形图的较低和较高截止频率
+# 可视化器的带宽。
+# 注意：最小总带宽为 43Mhz x 条形图数量。
+# 如果需要满足最小带宽，Cava 将自动增加较高截止频率。
+# Lower and higher cutoff frequencies for lowest and highest bars
+# the bandwidth of the visualizer.
+# Note: there is a minimum total bandwidth of 43Mhz x number of bars.
+# Cava will automatically increase the higher cutoff frequency if needed to satisfy the minimum bandwidth.
+; lower_cutoff_freq = 50
+; higher_cutoff_freq = 10000
+
+
+# Cava 进入睡眠模式前没有输入的秒数。Cava 将不执行 FFT 或绘制，并且
+# 每秒只检查一次输入。一旦检测到输入，Cava 就会唤醒。0 = 禁用。
+# Seconds with no input before cava goes to sleep mode. Cava will not perform FFT or drawing and
+# only check for input once per second. Cava will wake up once input is detected. 0 = disable.
+; sleep_timer = 0
+
+
+[input]
+
+# 音频捕获方法。可能的方法包括：'fifo', 'portaudio', 'pipewire', 'alsa', 'pulse', 'sndio', 'oss', 'jack' 或 'shmem'
+# 默认为 'oss', 'pipewire', 'sndio', 'jack', 'pulse', 'alsa', 'portaudio' 或 'fifo'，取决于 cava 构建时的支持。
+# 在 Mac 上默认为 'portaudio' 或 'fifo'
+# 在 Windows 上这是自动的，不需要输入设置。
+#
+# 所有输入方法都使用相同的配置变量 'source'
+# 来定义应该从哪里获取音频。
+#
+# 对于 pulseaudio 和 pipewire，'source' 将是来源。默认：'auto'，使用默认接收器的监视器来源
+# （所有 pulseaudio 接收器(输出)都与'监视器'来源(输入)相关联）。
+#
+# 对于 pipewire，'source' 将是要捕获的设备的对象名称或 object.serial。
+# 支持输入和输出设备。要捕获接收器节点的监视器来源，请在接收器的对象名称后附加 '.monitor'。
+#
+# 对于 alsa，'source' 将是捕获设备。
+# 对于 fifo，'source' 将是 fifo 文件的路径。
+# 对于 shmem，'source' 将是 /squeezelite-AA:BB:CC:DD:EE:FF 其中 'AA:BB:CC:DD:EE:FF' 是 squeezelite 的 MAC 地址
+#
+# 对于 sndio，'source' 将是原始录音音频描述符或监视子设备，例如 'rsnd/2' 或 'snd/1'。默认：'default'。
+# README.md 包含有关如何为 sndio 设置 CAVA 的更多信息。
+#
+# 对于 oss，'source' 将是音频设备的路径，例如 '/dev/dsp2'。默认：'/dev/dsp'，即默认音频设备。
+# README.md 包含有关如何在 FreeBSD 上为 OSS 设置 CAVA 的更多信息。
+#
+# 对于 jack，'source' 将是要连接的 JACK 服务器的名称，例如 'foobar'。默认：'default'。
+# README.md 包含有关如何为 JACK 设置 CAVA 的更多信息。
+#
+# Audio capturing method. Possible methods are: 'fifo', 'portaudio', 'pipewire', 'alsa', 'pulse', 'sndio', 'oss', 'jack' or 'shmem'
+# Defaults to 'oss', 'pipewire', 'sndio', 'jack', 'pulse', 'alsa', 'portaudio' or 'fifo', in that order, dependent on what support cava was built with.
+# On Mac it defaults to 'portaudio' or 'fifo'
+# On windows this is automatic and no input settings are needed.
+#
+# All input methods uses the same config variable 'source'
+# to define where it should get the audio.
+#
+# For pulseaudio and pipewire 'source' will be the source. Default: 'auto', which uses the monitor source of the default sink
+# (all pulseaudio sinks(outputs) have 'monitor' sources(inputs) associated with them).
+#
+# For pipewire 'source' will be the object name or object.serial of the device to capture from.
+# Both input and output devices are supported. To capture the monitor source of a sink node, append '.monitor' to the sink's object name.
+#
+# For alsa 'source' will be the capture device.
+# For fifo 'source' will be the path to fifo-file.
+# For shmem 'source' will be /squeezelite-AA:BB:CC:DD:EE:FF where 'AA:BB:CC:DD:EE:FF' will be squeezelite's MAC address
+#
+# For sndio 'source' will be a raw recording audio descriptor or a monitoring sub-device, e.g. 'rsnd/2' or 'snd/1'. Default: 'default'.
+# README.md contains further information on how to setup CAVA for sndio.
+#
+# For oss 'source' will be the path to a audio device, e.g. '/dev/dsp2'. Default: '/dev/dsp', i.e. the default audio device.
+# README.md contains further information on how to setup CAVA for OSS on FreeBSD.
+#
+# For jack 'source' will be the name of the JACK server to connect to, e.g. 'foobar'. Default: 'default'.
+# README.md contains further information on how to setup CAVA for JACK.
+#
+; method = pulse
+; source = auto
+
+; method = pipewire
+; source = auto
+
+; method = alsa
+; source = hw:Loopback,1
+
+; method = fifo
+; source = /tmp/mpd.fifo
+
+; method = shmem
+; source = /squeezelite-AA:BB:CC:DD:EE:FF
+
+; method = portaudio
+; source = auto
+
+; method = sndio
+; source = default
+
+; method = oss
+; source = /dev/dsp
+
+; method = jack
+; source = default
+
+# 可以为某些输入方法配置选项 'sample_rate', 'sample_bits', 'channels' 和 'autoconnect':
+#   sample_rate: fifo, pipewire, sndio, oss
+#   sample_bits: fifo, pipewire, sndio, oss
+#   channels:    sndio, oss, jack
+#   autoconnect: jack
+# 其他方法会忽略这些设置。
+# 对于 pipewire，sample_rate 将默认为 48000，对于所有其他输入方法，sample_rate 将默认为 44100。
+#
+# 对于 'sndio' 和 'oss'，它们只是首选值，即如果不被
+# 所选音频设备支持，该设备将改用其他支持的值。
+# 示例：48000、32 和 2，但设备仅支持 44100、16 和 1，那么它
+# 将使用 44100、16 和 1。
+#
+#
+# 'pipewire' 输入方法具有三个控制链接和混合的选项：
+#   active: 强制节点始终处理。当没有其他应用程序处于活动状态时，这对于监视来源很有用。
+#   remix: 允许 pipewire 重新混合音频通道以匹配 cava 的通道数。对于环绕声很有用。
+#   virtual: 将节点设置为虚拟，以避免记录来自 DE（桌面环境）的通知。
+#
+# The options 'sample_rate', 'sample_bits', 'channels' and 'autoconnect' can be configured for some input methods:
+#   sample_rate: fifo, pipewire, sndio, oss
+#   sample_bits: fifo, pipewire, sndio, oss
+#   channels:    sndio, oss, jack
+#   autoconnect: jack
+# Other methods ignore these settings.
+# For pipewire, sample_rate will default to 48000, for all other input methods, sample_rate will default to 44100.
+#
+# For 'sndio' and 'oss' they are only preferred values, i.e. if the values are not supported
+# by the chosen audio device, the device will use other supported values instead.
+# Example: 48000, 32 and 2, but the device only supports 44100, 16 and 1, then it
+# will use 44100, 16 and 1.
+#
+#
+# The 'pipewire' input method has three options to control linking and mixing:
+#   active: Force the node to always process. Useful for monitoring sources when no other application is active.
+#   remix: Allow pipewire to remix audio channels to match cava's channel count. Useful for surround sound.
+#   virtual: Set the node to virtual, to avoid recording notifications from the DE.
+#
+; sample_rate = 44100
+; sample_bits = 16
+; channels = 2
+; autoconnect = 2
+; active = 1
+; remix = 1
+; virtual = 1
+
+
+[output]
+
+# 输出方法。可以是 'ncurses', 'noncurses', 'raw', 'noritake', 'sdl'
+# 或 'sdl_glsl'。
+# 'noncurses' (默认) 使用缓冲区和光标移动以仅在终端中打印
+# 帧与帧之间的更改。与 'ncurses' 相比，占用更少的资源并且不易出现
+# 画面撕裂 (垂直同步问题)。
+#
+# 'raw' 是一个 8 或 16 位 (通过 'bit_format' 选项配置) 的数据
+# 流，表示条形图的高度，可用于发送到其他应用程序。
+# 'raw' 默认为 1024 个立体声条形图 (512 个单声道条形图)，可以在上面的 'bars' 选项中调整。
+#
+# 'noritake' 以图形模式下 Noritake VFD 显示器预期的格式输出位图
+# 目前它仅支持 3000 系列图形 VFD。
+#
+# 'sdl' 使用 Simple DirectMedia Layer 在图形上下文中渲染。
+# 'sdl_glsl' 使用 SDL 创建 OpenGL 上下文。可以编写自己的着色器或
+# 使用预定义的着色器之一。
+# Output method. Can be 'ncurses', 'noncurses', 'raw', 'noritake', 'sdl'
+# or 'sdl_glsl'.
+# 'noncurses' (default) uses a buffer and cursor movements to only print
+# changes from frame to frame in the terminal. Uses less resources and is less
+# prone to tearing (vsync issues) than 'ncurses'.
+#
+# 'raw' is an 8 or 16 bit (configurable via the 'bit_format' option) data
+# stream of the bar heights that can be used to send to other applications.
+# 'raw' defaults to 1024 bars stereo (512 bars mono), which can be adjusted in the 'bars' option above.
+#
+# 'noritake' outputs a bitmap in the format expected by a Noritake VFD display
+#  in graphic mode. It only support the 3000 series graphical VFDs for now.
+#
+# 'sdl' uses the Simple DirectMedia Layer to render in a graphical context.
+# 'sdl_glsl' uses SDL to create an OpenGL context. Write your own shaders or
+# use one of the predefined ones.
+; method = noncurses
+
+# 可视化的方向。可以是 'bottom' (底部), 'top' (顶部), 'left' (左侧), 'right' (右侧) 或
+# 'horizontal' (水平)。默认为 'bottom'。'left' 和 'right' 仅在 sdl
+# 和 ncurses 输出中支持。'horizontal' (条形图从中心上下移动) 仅在
+# noncurses 输出中支持。
+# 注意：对于 'bottom' 以外方向使用的字符，许多字体可能存在奇怪或缺失的字形，
+# 这可能会导致输出看起来不正确。
+# Orientation of the visualization. Can be 'bottom', 'top', 'left', 'right' or
+# 'horizontal'. Default is 'bottom'. 'left and 'right' are only supported on sdl
+# and ncruses output. 'horizontal' (bars go up and down from center) is only supported
+# on noncurses output.
+# Note: many fonts have weird or missing glyphs for characters used in orientations
+# other than 'bottom', which can make output not look right.
+; orientation = bottom
+
+# 视觉通道。可以是 'stereo' (立体声) 或 'mono' (单声道)。
+# 'stereo' 镜像两个通道，低频位于中心。
+# 'mono' 从左到右输出从最低到最高频率。
+# 'mono_option' 将单声道设置为从 'left' (左), 'right' (右) 或 'average' (平均) 获取输入。
+# 将 'reverse' 设置为 1 以相反的方式显示频率。
+# Visual channels. Can be 'stereo' or 'mono'.
+# 'stereo' mirrors both channels with low frequencies in center.
+# 'mono' outputs left to right lowest to highest frequencies.
+# 'mono_option' set mono to either take input from 'left', 'right' or 'average'.
+# set 'reverse' to 1 to display frequencies the other way around.
+channels = mono
+; mono_option = average
+; reverse = 0
+
+# 仅在 orientation 设置为 'horizontal' 时有效。
+# 将 'horizontal_stereo' 设置为 1 会将左声道的条形图置于顶部，右声道的置于底部。
+# 将 'left_bottom' 设置为 0 会将右声道置于顶部，左声道置于底部。
+# Only valid if orientation is set to 'horizontal'.
+# Set 'horizontal_stereo' to 1 to have left channel bars at top and right channel at bottom.
+# Set 'left_bottom' to 0 to have right channel at top and left channel at bottom.
+; horizontal_stereo = 0
+; left_bottom = 1
+
+# 原始 (raw) 输出目标。
+# 在 Linux 上，如果目标不存在，将创建一个 fifo。
+# 在 Windows 上，如果目标不存在，将创建一个命名管道。
+# Raw output target.
+# On Linux, a fifo will be created if target does not exist.
+# On Windows, a named pipe will be created if target does not exist.
+; raw_target = /dev/stdout
+
+# 原始数据格式。可以是 'binary' (二进制) 或 'ascii'。
+# Raw data format. Can be 'binary' or 'ascii'.
+; data_format = binary
+
+# 二进制位格式，可以是 '8bit' (0-255) 或 '16bit' (0-65530)。
+# Binary bit format, can be '8bit' (0-255) or '16bit' (0-65530).
+; bit_format = 16bit
+
+# Ascii 最大值。在 'ascii' 模式下，范围将从 0 到此处指定的值
+# Ascii max value. In 'ascii' mode range will run from 0 to value specified here
+; ascii_max_range = 1000
+
+# Ascii delimiters. In ascii format each bar and frame is separated by a delimiters.
+# Use decimal value in ascii table (i.e. 59 = ';' and 10 = '\n' (line feed)).
+; bar_delimiter = 59
+; frame_delimiter = 10
+
+# sdl 窗口大小和位置。-1,-1 为居中。
+# sdl window size and position. -1,-1 is centered.
+; sdl_width = 1024
+; sdl_height = 512
+; sdl_x = -1
+; sdl_y= -1
+; sdl_full_screen = 0
+
+# 在 x 轴上的条形图设置标签。可以是 'frequency' (频率) 或 'none' (无)。默认：'none'
+# 'frequency' 在上方显示条形图的下限截止频率。
+# 仅在 ncurses 和 noncurses 输出中支持。
+# set label on bars on the x-axis. Can be 'frequency' or 'none'. Default: 'none'
+# 'frequency' displays the lower cut off frequency of the bar above.
+# Only supported on ncurses and noncurses output.
+; xaxis = none
+
+# 启用同步 (synchronized sync)。1 = 开启， 0 = 关闭
+# 消除 alacritty 终端模拟器中的闪烁。
+# 默认为关闭，因为在其他终端模拟器中的行为未知
+# enable synchronized sync. 1 = on, 0 = off
+# removes flickering in alacritty terminal emulator.
+# defaults to off since the behaviour in other terminal emulators is unknown
+; synchronized_sync = 0
+
+# Shaders for sdl_glsl, located in $HOME/.config/cava/shaders
+; vertex_shader = pass_through.vert
+; fragment_shader = bar_spectrum.frag
+
+# 对于 glsl 输出模式，即使没有音频也保持渲染
+# for glsl output mode, keep rendering even if no audio
+; continuous_rendering = 0
+
+# 禁用 tty 中的控制台黑屏（屏幕保护程序）
+# (在 FreeBSD 上不支持)
+# disable console blank (screen saver) in tty
+# (Not supported on FreeBSD)
+; disable_blanking = 0
+
+# 空闲时在屏幕底部显示一个扁平的条，1 = 开启， 0 = 关闭
+# show a flat bar at the bottom of the screen when idle, 1 = on, 0 = off
+; show_idle_bar_heads = 1
+
+# 显示波形而不是频谱，1 = 开启， 0 = 关闭
+# show waveform instead of frequency spectrum, 1 = on, 0 = off
+; waveform = 0
+
+[color]
+
+# 颜色可以是七个预定义颜色之一：black (黑), blue (蓝), cyan (青), green (绿), magenta (品红), red (红), white (白), yellow (黄)。
+# 或者通过十六进制代码 '#xxxxxx' 定义（十六进制代码必须在单引号 '' 内）。用户定义的颜色需要
+# 支持更改颜色定义的终端，例如 Gnome-terminal 或 rxvt。
+# 默认为保持当前终端颜色
+# Colors can be one of seven predefined: black, blue, cyan, green, magenta, red, white, yellow.
+# Or defined by hex code '#xxxxxx' (hex code must be within ''). User defined colors requires
+# a terminal that can change color definitions such as Gnome-terminal or rxvt.
+# default is to keep current terminal color
+; background = default
+; foreground = default
+
+# SDL 和 sdl_glsl 仅支持十六进制代码颜色，这些是默认设置：
+# SDL and sdl_glsl only support hex code colors, these are the default:
+; background = '#111111'
+; foreground = '#33ffff'
+
+
+# 渐变模式，仅支持以十六进制定义的颜色，
+# 背景也必须以十六进制定义或保持注释状态。1 = 开启， 0 = 关闭。
+# 最多可以定义 8 种不同的颜色。它们从屏幕的底部排列到顶部
+# Gradient mode, only hex defined colors are supported,
+# background must also be defined in hex or remain commented out. 1 = on, 0 = off.
+# You can define as many as 8 different colors. They range from bottom to top of screen
+gradient = 1
+;gradient_color_1 = '#59cc33'
+;gradient_color_2 = '#80cc33'
+;gradient_color_3 = '#a6cc33'
+;gradient_color_4 = '#cccc33'
+;gradient_color_5 = '#cca633'
+;gradient_color_6 = '#cc8033'
+;gradient_color_7 = '#cc5933'
+;gradient_color_8 = '#cc3333'
+
+;gradient_color_1 = '#5B8372'
+;gradient_color_2 = '#7F9950'
+;gradient_color_3 = '#B3B969'
+;gradient_color_4 = '#F2F2EB'
+;gradient_color_5 = '#CFE1B1'
+;gradient_color_6 = '#5ecc33'
+;gradient_color_7 = '#a1e686'
+;gradient_color_8 = '#54bf5b'
+
+gradient_color_1 = '#2F8F1B'
+gradient_color_2 = '#63A635'
+gradient_color_3 = '#6AAE23'
+gradient_color_4 = '#7CB828'
+gradient_color_5 = '#7EAD55'
+gradient_color_6 = '#C1F682'
+gradient_color_7 = '#D9E77A'
+gradient_color_8 = '#E6EDBB'
+
+
+# 水平 (Horizontal) 仅在 noncurses 输出中支持。
+# 每个条形图只计算一种颜色。
+# Horizontal is only supported on noncurses output.
+# Only one color will be calculated per bar.
+; horizontal_gradient = 0
+; horizontal_gradient_color_1 = '#c45161'
+; horizontal_gradient_color_2 = '#e094a0'
+; horizontal_gradient_color_3 = '#f2b6c0'
+; horizontal_gradient_color_4 = '#f2dde1'
+; horizontal_gradient_color_5 = '#cbc7d8'
+; horizontal_gradient_color_6 = '#8db7d2'
+; horizontal_gradient_color_7 = '#5e62a9'
+; horizontal_gradient_color_8 = '#434279'
+
+
+# 如果同时启用了垂直和水平渐变，垂直渐变将沿此方向混合。
+# 可以是 'up' (上), 'down' (下), 'left' (左) 或 'right' (右)。'up' 表示垂直渐变将从
+# 底部向顶部混合。即底部只有水平颜色，
+# 而顶部只有垂直渐变的颜色。
+# If both vertical and horizontal gradient is enabled, vertical will be blended in this direction.
+# Can be 'up', 'down', 'left' or 'right'. 'up' means the vertical gradient will be blended in from
+# bottom to top. I.e. the bottom will be only the horizontal
+# and top will be only the color of the vertical gradient.
+; blend_direction = 'up'
+
+# use theme file instead of defining colors in this file
+# themes are located in $HOME/.config/cava/themes
+; theme = 'none'
+
+
+[smoothing]
+
+# 积分平滑的百分比值。取值范围从 0 - 100。
+# 较高的值意味着更平滑，但精度更低。0 表示禁用。
+# 从 0.8.0 起已弃用，请改用 noise_reduction
+# Percentage value for integral smoothing. Takes values from 0 - 100.
+# Higher values means smoother, but less precise. 0 to disable.
+# DEPRECATED as of 0.8.0, use noise_reduction instead
+; integral = 77
+
+# 禁用或启用带有或不带有 "waves" 的所谓 "Monstercat smoothing" (怪兽猫平滑)。设置为 0 以禁用。
+# Disables or enables the so-called "Monstercat smoothing" with or without "waves". Set to 0 to disable.
+; monstercat = 0
+; waves = 0
+
+# Set gravity percentage for "drop off". Higher values means bars will drop faster.
+# Accepts only non-negative values. 50 means half gravity, 200 means double. Set to 0 to disable "drop off".
+# DEPRECATED as of 0.8.0, use noise_reduction instead
+; gravity = 100
+noise_reduction = 50
+
+# 在条形图高度中，低于此高度的条形图将不会被绘制。
+# 从 0.8.0 起已弃用
+# In bar height, bars that would have been lower that this will not be drawn.
+# DEPRECATED as of 0.8.0
+; ignore = 0
+
+# 降噪，整数 0 - 100。默认 77
+# 原始可视化非常嘈杂，此因素调整积分和重力滤波器以保持信号平滑
+# 100 会非常慢且平滑，0 会很快但很嘈杂。
+# Noise reduction, int 0 - 100. default 77
+# the raw visualization is very noisy, this factor adjusts the integral and gravity filters to keep the signal smooth
+# 100 will be very slow and smooth, 0 will be fast but noisy.
+noise_reduction = 80
+
+
+[eq]
+
+# 这个有点复杂。你可以拥有任意数量的键。
+# 请记住取消注释多个键！键越多 = 精度越高。
+# 查看 Github 上的 readme.md 以获取更多解释和示例。
+# This one is tricky. You can have as much keys as you want.
+# Remember to uncomment more than one key! More keys = more precision.
+# Look at readme.md on github for further explanations and examples.
+; 1 = 1 # bass (低音)
+; 1 = 1 # bass
+; 2 = 1
+; 3 = 1 # midtone (中音)
+; 3 = 1 # midtone
+; 4 = 1
+; 5 = 1 # treble (高音)
+; 5 = 1 # treble
