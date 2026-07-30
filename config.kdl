@@ -674,6 +674,12 @@ binds {
     Mod+Shift+G  { spawn "qs" "ipc" "-p" "/home/minec/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "cyclePrevious"; }
     //power menu
     Mod+Delete {spawn "dms" "ipc" "call" "fullscreenPowerMenu" "toggle";}
+    //dms控制中心
+    Mod+Z { spawn "dms" "ipc" "call" "control-center" "toggle"; }
+    //dms概览
+    Mod+X { spawn "dms" "ipc" "call" "dash" "toggle" "overview"; }
+    //dms音乐
+    Mod+S { spawn "dms" "ipc" "call" "dash" "toggle" "media"; }
 }
 // Put swaybg inside the overview backdrop.
 layer-rule {

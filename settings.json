@@ -258,7 +258,13 @@
   "appLauncherViewMode": "list",
   "spotlightModalViewMode": "list",
   "browserPickerViewMode": "grid",
-  "browserUsageHistory": {},
+  "browserUsageHistory": {
+    "google-chrome": {
+      "count": 1,
+      "lastUsed": 1784822526359,
+      "name": "Google Chrome"
+    }
+  },
   "appPickerViewMode": "grid",
   "filePickerUsageHistory": {},
   "sortAppsAlphabetically": true,
@@ -316,7 +322,7 @@
   "lastAppliedIconTheme": "",
   "cursorSettings": {
     "theme": "System Default",
-    "size": 20,
+    "size": 24,
     "niri": {
       "hideWhenTyping": false,
       "hideAfterInactiveMs": 0
@@ -392,11 +398,6 @@
   "fadeToDpmsEnabled": true,
   "fadeToDpmsGracePeriod": 5,
   "launchPrefix": "",
-  "brightnessDevicePins": {},
-  "wifiNetworkPins": {},
-  "bluetoothDevicePins": {},
-  "audioInputDevicePins": {},
-  "audioOutputDevicePins": {},
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
@@ -573,7 +574,8 @@
       },
       "layout": {
         "alwaysCenterSingleColumn": true
-      }
+      },
+      "disabled": true
     }
   },
   "hyprlandOutputSettings": {},
@@ -648,7 +650,7 @@
       "autoHideDelay": 250,
       "showOnWindowsOpen": false,
       "openOnOverview": false,
-      "visible": true,
+      "visible": false,
       "popupGapsAuto": true,
       "popupGapsManual": 4,
       "maximizeDetection": true,
@@ -768,5 +770,5 @@
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
   "frameBarInsetPadding": -1,
-  "configVersion": 12
+  "configVersion": 13
 }

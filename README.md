@@ -11,6 +11,7 @@
 | `kdeglobals` | kde窗口效果，已弃用 | `~/.config/kdeglobals` |
 | `environment.d` | 用户环境变量，包括 `envvars.conf`（设置系统的默认语言为中文）和 `im.conf`（关于 Fcitx5 输入法的环境变量设置） | `/home/minec/.config/environment.d` |
 | `bashrc` | 终端配置 | `~/.bashrc` |
+| `DankPopoutStandalone.qml` | DankMaterialShell 的独立弹出窗口组件 | `/usr/share/quickshell/dms/Widgets/DankPopoutStandalone.qml` |
 
 ## 文件位置结构图
 
@@ -19,21 +20,27 @@
 ├── etc/
 │   └── default/
 │       └── grub
-└── home/minec/
-    ├── .bashrc
-    └── .config/
-        ├── alacritty/
-        │   └── alacritty.toml
-        ├── cava/
-        │   └── config
-        ├── DankMaterialShell/
-        │   └── settings.json
-        ├── environment.d/
-        │   ├── envvars.conf
-        │   └── im.conf
-        ├── kdeglobals
-        ├── niri/
-        │   └── config.kdl
-        └── opencode/
-            └── tui.json
+├── home/minec/
+│   ├── .bashrc
+│   └── .config/
+│       ├── alacritty/
+│       │   └── alacritty.toml
+│       ├── cava/
+│       │   └── config
+│       ├── DankMaterialShell/
+│       │   └── settings.json
+│       ├── environment.d/
+│       │   ├── envvars.conf
+│       │   └── im.conf
+│       ├── kdeglobals
+│       ├── niri/
+│       │   └── config.kdl
+│       └── opencode/
+│           └── tui.json
+└── usr/
+    └── share/
+        └── quickshell/
+            └── dms/
+                └── Widgets/
+                    └── DankPopoutStandalone.qml
 ```
