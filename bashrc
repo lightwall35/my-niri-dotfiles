@@ -25,8 +25,9 @@ alias rs='sudo systemctl restart mihomo'
 
 alias comfy="cd ~/playground/comfyui && ./start.sh"
 
-alias regrub="sudo grub-mkconfig -o /boot/grub/grub.cfg+"
+alias regrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
+alias start-shell="nohup qs >/dev/null 2>&1 &"
 showart() {
 	local dir="/home/minec/ascii-art/nahida-2-animate"
 	local files=("$dir"/*.txt)
@@ -56,3 +57,7 @@ HISTFILESIZE=20000
 
 
 
+
+# conda
+source /opt/miniconda3/etc/profile.d/conda.sh
+alias cf='conda activate comfyui'

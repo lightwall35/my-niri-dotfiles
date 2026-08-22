@@ -3,8 +3,8 @@
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Arch"
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 nvidia_drm.modeset=1 nvidia_drm.fbdev=1"
-#GRUB_CMDLINE_LINUX_DEFAULT="acpi_backlight=native loglevel=3 nvidia_drm.modeset=1 nvidia_drm.fbdev=1"
+#GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 nvidia_drm.modeset=1 nvidia_drm.fbdev=1"
+GRUB_CMDLINE_LINUX_DEFAULT="acpi_backlight=native loglevel=3 nvidia_drm.modeset=1 nvidia_drm.fbdev=1"
 GRUB_CMDLINE_LINUX=""
 
 # Preload both GPT and MBR modules so that they are not missed

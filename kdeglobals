@@ -133,6 +133,8 @@ ForegroundPositive=0,110,40
 ForegroundVisited=224,64,251
 
 [General]
+TerminalApplication=alacritty
+TerminalService=Alacritty.desktop
 BrowserApplication=google-chrome.desktop
 ColorScheme=LayanT
 ColorSchemeHash=03135ae2be60c2aec34bb735b7a47416cd1584c0
