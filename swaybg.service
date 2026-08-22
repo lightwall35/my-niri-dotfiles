@@ -1,0 +1,8 @@
+[Unit]
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/bin/bash -c 'exec swaybg -i "$(< %h/.cache/current_swaybg_img)" -m fill'
+Restart=on-failure

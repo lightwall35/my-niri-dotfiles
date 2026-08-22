@@ -1,0 +1,20 @@
+# /dev/sda2
+
+# /dev/sda1
+
+# /dev/sda2
+UUID=ebaea734-4e18-48f2-89d1-473bc89b8365	/         	ext4      	rw,relatime	0 1
+
+# /dev/sda1
+UUID=B680-E2FB      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+
+# 131G Windows/Linux Exchange Partition (Gestalt)
+UUID=AEA4-620E /mnt/exchange exfat defaults,uid=1000,gid=1000,dmask=022,fmask=113 0 0
+  
+    # Windows Partitions (Auto-mounted)
+    UUID=64E00219E001F25A /mnt/OS ntfs-3g defaults,uid=1000,gid=1000,dmask=022,fmask=133,nofail 0 0      
+    UUID=9C8AA2688AA23EA0 /mnt/世界树 ntfs-3g defaults,uid=1000,gid=1000,dmask=022,fmask=133,nofail 0 0  
+    UUID=7A7EAF3A7EAEEE57 /mnt/罐装知识 ntfs-3g defaults,uid=1000,gid=1000,dmask=022,fmask=133,nofail 0 0
+/swapfile none swap sw 0 0
+
