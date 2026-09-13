@@ -3,7 +3,7 @@ spawn-at-startup "awww-daemon"
 //代理设置
 //spawn-at-startup "dbus-update-activation-environment --systemd http_proxy https_proxy all_proxy"
 //第三方状态栏
-//spawn-at-startup "qs" "-p" "/home/minec/其他人的quickshell/quickshell"
+//spawn-at-startup "qs" "-p" "/home/lightwall/其他人的quickshell/quickshell"
 //设置右下角为热角
 gestures {
     hot-corners {
@@ -11,7 +11,7 @@ gestures {
     }
 }
 //壁纸切换
-spawn-at-startup "qs" "-p" "/home/minec/playground/bgpicker-awww-swaybg" "-n" "-d"
+spawn-at-startup "qs" "-p" "/home/lightwall/playground/bgpicker-awww-swaybg" "-n" "-d"
 
 
 // This config is in the KDL format: https://kdl.dev
@@ -396,6 +396,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+E hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -640,7 +641,7 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
+    Print { spawn "dms" "screenshot" "scroll"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
@@ -666,14 +667,14 @@ binds {
     //切换壁纸
     Mod+A { spawn "~/.config/niri/scripts/change_wallpaper.sh"; }
     // Toggle the wallpaper carousel
-    Mod+N { spawn "qs" "ipc" "-p" "/home/minec/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "toggle"; }
+    Mod+N { spawn "qs" "ipc" "-p" "/home/lightwall/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "toggle"; }
 
     // Or use the convenience script
-    // Mod+W { spawn "/home/minec/playground/bgpicker-awww-swaybg/bgpicker.sh" "toggle"; }
+    // Mod+W { spawn "/home/lightwall/playground/bgpicker-awww-swaybg/bgpicker.sh" "toggle"; }
 
     // Cycle through wallpapers
-    Mod+Shift+B { spawn "qs" "ipc" "-p" "/home/minec/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "cycleNext"; }
-    Mod+Shift+G  { spawn "qs" "ipc" "-p" "/home/minec/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "cyclePrevious"; }
+    Mod+Shift+B { spawn "qs" "ipc" "-p" "/home/lightwall/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "cycleNext"; }
+    Mod+Shift+G  { spawn "qs" "ipc" "-p" "/home/lightwall/playground/bgpicker-awww-swaybg" "call" "wallpaperCarousel" "cyclePrevious"; }
     //dms-power menu
     Mod+Delete {spawn "dms" "ipc" "call" "fullscreenPowerMenu" "toggle";}
     //dms控制中心
@@ -682,18 +683,8 @@ binds {
     Mod+X { spawn "dms" "ipc" "call" "dash" "toggle" "overview"; }
     //dms音乐
     Mod+S { spawn "dms" "ipc" "call" "dash" "toggle" "media"; }
-    //第三方状态栏-隐藏/开启
-    Mod+Y{ spawn "quickshell" "-p" "/home/minec/其他人的quickshell/quickshell" "ipc" "call" "bar" "toggle"; }
-    //第三方状态栏-概览
-    Mod+G { spawn "quickshell" "-p" "/home/minec/其他人的quickshell/quickshell" "ipc" "call" "keystone" "hub"; }
-    //第三方状态栏-工具箱
-    Mod+P { spawn "quickshell" "-p" "/home/minec/其他人的quickshell/quickshell" "ipc" "call" "keystone" "tools"; }
-    // 呼出 / 隐藏 通知中心 (Notification Center)
-    Mod+F1 { spawn "quickshell" "-p" "/home/minec/其他人的quickshell/quickshell" "ipc" "call" "sidebar" "toggle"; }
-    // 呼出 / 隐藏 快捷设置 (Quick Settings)
-    Mod+F2 { spawn "quickshell" "-p" "/home/minec/其他人的quickshell/quickshell" "ipc" "call" "qs" "toggle"; }
-    
-    
+
+
 
 }
 // Put swaybg inside the overview backdrop.
@@ -758,7 +749,7 @@ window-rule {
 window-rule {
   match app-id="Alacritty"
   background-effect {
-  blur true
+//  blur true
   }
 }
 
@@ -799,7 +790,7 @@ window-rule {
 
 window-rule {
   match app-id="firefox"
-  opacity 0.95
+  opacity 1.0
   default-column-width { proportion 1.0; }
 }
 

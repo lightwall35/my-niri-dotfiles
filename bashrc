@@ -12,7 +12,7 @@ export PATH=~/.npm-global/bin:$PATH
 
 
 # Added by Antigravity CLI installer
-export PATH="/home/minec/.local/bin:$PATH"
+export PATH="/home/lightwall/.local/bin:$PATH"
 
 # Set terminal language to English
 export LANG=C.UTF-8
@@ -29,7 +29,7 @@ alias regrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 alias start-shell="nohup qs >/dev/null 2>&1 &"
 showart() {
-	local dir="/home/minec/ascii-art/nahida-2-animate"
+	local dir="/home/lightwall/ascii-art/nahida-2-animate"
 	local files=("$dir"/*.txt)
 
 	alacritty msg config "font.size=1.2"

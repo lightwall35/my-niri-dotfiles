@@ -42,6 +42,8 @@ def main():
         if real_path.is_dir():
             for root, _, files in os.walk(real_path):
                 for f in files:
+                    if "backup" in f or ".bak" in f or f == "input.kdl":
+                        continue
                     rp = Path(root) / f
                     rel = rp.relative_to(real_path)
                     repo_p = repo_path / rel

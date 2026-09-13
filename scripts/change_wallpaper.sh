@@ -11,8 +11,8 @@
 # ------------------------------------------------------------------------------
 
 # Define the absolute paths for the wallpaper directories
-readonly DIR_SWAYBG="/home/minec/swaybg_wallpapers"
-readonly DIR_AWWW="/home/minec/awww_wallpapers"
+readonly DIR_SWAYBG="/home/lightwall/swaybg_wallpapers"
+readonly DIR_AWWW="/home/lightwall/awww_wallpapers"
 
 # Define the absolute paths for the state and cache files
 readonly STATE_FILE="$HOME/.cache/wallpaper_index"
